@@ -3,17 +3,22 @@ import employees from "../data/employees";
 import { Employee } from "../types";
 
 export default function Employees() {
-  const isLead = (emp: Employee) => emp.role.toLowerCase().includes("lead");
+  const isLead = (emp: Employee) =>
+    emp.role.toLowerCase().includes("lead") ||
+    emp.role.toLowerCase().includes("director");
 
   const employeesRandomized = employees.reduce((acc, cur) => {
     return Math.random() > 0.5 ? [...acc, cur] : [cur, ...acc];
   }, []);
+
+  console.log(employeesRandomized);
 
   const employeesSorted = Array.from(employeesRandomized).sort((e1, e2) => {
     if (isLead(e1) && isLead(e2)) return 0;
     if (isLead(e1) && !isLead(e2)) return -1;
     if (!isLead(e1) && isLead(e2)) return 1;
   });
+  console.log(employeesSorted);
 
   return (
     <div className="px m-8">
